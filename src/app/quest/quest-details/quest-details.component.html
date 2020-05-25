@@ -1,0 +1,11 @@
+<button routerLink="/quests" mat-flat-button><mat-icon mat-list-icon>chevron_left</mat-icon></button>
+<div class="mat-title" style="float: right">tekst</div>
+
+<!-- [lat] og [long] er indikerer propertybinding - parent-child bindings -->
+<!-- (outData)="isZooming($event)" er en mekanisme der tillader child-parent kommunikation.
+     Events bliver emittet ned gennem hierarkiet og fanget af parent. 
+-->
+
+<app-map [lat]="quest.lat" [long]="quest.long" (outData)="isZooming($event)"></app-map>
+
+<!-- <app-map ></app-map> -->

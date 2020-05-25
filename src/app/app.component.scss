@@ -1,0 +1,15 @@
+.mat-toolbar {
+    background-color: white;
+    position: fixed;
+    bottom: 0em;
+    z-index: 1000; /* Ensure that your app's content doesn't overlap the toolbar */
+}
+.mat-button {
+    width:100%
+}
+.mat-icon{
+    color:#888;
+}
+.mat-small{
+    color:#888;
+}
