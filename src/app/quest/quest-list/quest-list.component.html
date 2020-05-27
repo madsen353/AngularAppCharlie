@@ -1,22 +1,11 @@
 <h1>Quest list</h1>
-<!-- Autocomplete form - Reactive form -->
-<form class="example-form">
-    <input matInput placeholder="Quest" aria-label="Quest" [matAutocomplete]="auto" [formControl]="questCtrl" />
-    <mat-autocomplete #auto="matAutocomplete">
-        <mat-option *ngFor="let quest of filteredQuests | async" [value]="quest.title">
-            <span>{{ quest.title }}</span> |
-            <small>Population: {{ quest.title }}</small>
-        </mat-option>
-    </mat-autocomplete>
-</form>
-
 <!-- Gammel liste -->
-<!-- <mat-list>
-    <mat-list-item *ngFor="let quest of quests" router>
-        <mat-icon mat-list-icon>folder</mat-icon> -->
-        <!-- routerLink tager to argumenter, path og ressource. Alt hvad der ligger i <a> linker til en ressource-->
-        <!-- <a [routerLink]="['/quests/details', quest.id]">
+ <mat-list>
+    <mat-list-item *ngFor="let quest of allQuests" router>
+        <mat-icon mat-list-icon>folder</mat-icon> 
+         <!-- routerLink tager to argumenter, path og ressource. Alt hvad der ligger i <a> linker til en ressource -->
+        <a [routerLink]="['/quests/details', quest.id]">
             <div mat-line>{{ quest.title }}</div>
         </a>
     </mat-list-item>
-</mat-list> -->
+</mat-list> 

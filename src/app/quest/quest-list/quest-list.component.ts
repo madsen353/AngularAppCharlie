@@ -5,6 +5,7 @@ import { map, startWith } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 
 
+
 import { LocationService } from '../location.service';
 import { HttpClient } from '@angular/common/http';
 import { DbserviceService } from 'src/app/dbservice.service';
@@ -17,41 +18,32 @@ import { DbserviceService } from 'src/app/dbservice.service';
 })
 
 export class QuestListComponent implements OnInit {
-  //Quest collection
-  // quests : any;
-  questServer = [];
-
-  quests = [{
-    id: 1,
-    title: "den første quest"
-  }, {
-    id: 2,
-    title: "den anden quest"
-  }, {
-    id: 3,
-    title: "den tredje quest"
-  }];
-
-
-
-
-  questCtrl = new FormControl();
-  filteredQuests: Observable<any[]>;
+  //Quest array til at obevare quests modtaget fra serveren:
+  allQuests = [];
+  activeQuests = [];
 
   constructor(private http: HttpClient, private dbservie : DbserviceService) {
-    this.dbservie.getAllQuests().subscribe(
-      (suc) =>{console.log(suc)},
-      (error)=>{console.log(error)},
-      ()=>{console.log("done")})
     
-  }
-  /* Vores app skal have en liste af objekter som kan vises i brugergrænsefladen */
+    this.dbservie.getAllQuests().subscribe(
+      (suc) => {this.allQuests = suc},
+      (error)=>{console.log(error)},
+      ()=>{}  //Kodeblok til OnCompleted
+    )
+    
+    // this.dbservie.getActiveQuests().subscribe(
+    //   (suc) => {this.activeQuests = suc; console.log(suc)},
+    //   (error)=>{console.log(error)},
+    //   ()=>{console.log('Active quests fetched')}  //Kodeblok til OnCompleted
+    // )
 
-  // getPossibleQuests(){
-  //   this.dbservie.getAllQuests().subscribe(
-  //     (result)=>{console.log(result)}
-  //   );
-  // }
+    this.dbservie.getQuestById(2).subscribe(
+      (suc) => {this.activeQuests = suc; console.log(suc)},
+      (error)=>{console.log(error)},
+      ()=>{console.log('Quest fetched')}  //Kodeblok til OnCompleted
+    )
+
+  }
+
   public ngOnInit(): void {
   } 
 }

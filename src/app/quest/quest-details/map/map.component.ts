@@ -55,8 +55,7 @@ export class MapComponent implements OnInit {
       this.locationService.position$.subscribe(
         (suc)=>{console.log(suc);},
         (err)=>{console.log(err);},
-        ()=>{console.log("finnally");
-        }
+        ()=>{} // Kodeblok til OnCompleted
       );
   }
   /* NgOninit kan benyttes til at initere kortet.  */
@@ -85,26 +84,32 @@ export class MapComponent implements OnInit {
         this.map.getView().setCenter(olProj.fromLonLat([suc.long, suc.lat]))
       },
       (err)=>{console.log(err)},
-      ()=>{console.log("finnally")}
+      ()=>{} // Kodeblok til OnCompleted
     )
+    
 
-    // Vi definerer her en nye Observable ved hjælp af fromEvent.
-    this.buttonStream$ = fromEvent(this.button._elementRef.nativeElement, 'click');
-        // .subscribe(res => console.log(res));
 
-    this.buttonStream$
-      .map((element)=>{element + 1 })
-      .filter()
+    //VI ved faktisk ikke hvad denne gør, hvis det ikke virker når vi har map data på quests, så lad det være live igen
+   // Vi definerer her en nye Observable ved hjælp af fromEvent.
+    //this.buttonStream$ = fromEvent(this.button._elementRef.nativeElement, 'click')
+    // .subscribe(
+    //   (suc)=>{
+    //     res => console.log(res)
+    //   },
+    //   (err)=>{console.log(err)},
+    //   ()=>{} // Kodeblok til OnCompleted
+    // )
+    //;
+        
+    this.buttonStream$.map((element)=>
+    {element + 1 }).filter()
       .subscribe(()=>{
         this.map.getView().setZoom(<number>(this.map.getView().getZoom() + 1));
-        this.outData.emit("ZoomIn");
       })
   }
 
-  /* Husk at 'npm install @types/ol' for at installere typer, så i kan anvende intellisence og gøre jeres kode typestærkt */
+  /* Vi benytter os af OpenLayers API til at manipulere med kortet */
   zoomIn(){
-    /* Vi benytter os af OpenLayers API til at manipulere med kortet */
-
     this.map.getView().setZoom(<number>(this.map.getView().getZoom() + 1));
     this.outData.emit("ZoomIn");
   }
